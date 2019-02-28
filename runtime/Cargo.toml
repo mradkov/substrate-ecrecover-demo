@@ -1,0 +1,153 @@
+[dependencies.aura]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-aura'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.balances]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-balances'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.client]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'substrate-client'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.consensus]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-consensus'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.consensus-aura]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'substrate-consensus-aura-primitives'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.executive]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-executive'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.fees]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-fees'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.indices]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-indices'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.parity-codec]
+default-features = false
+version = '3.0'
+
+[dependencies.parity-codec-derive]
+default-features = false
+version = '3.0'
+
+[dependencies.primitives]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'substrate-primitives'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.rstd]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'sr-std'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.runtime-io]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'sr-io'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.runtime-primitives]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'sr-primitives'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.safe-mix]
+default-features = false
+version = '1.0'
+
+[dependencies.serde]
+default-features = false
+version = '1.0'
+
+[dependencies.serde_derive]
+optional = true
+version = '1.0'
+
+[dependencies.sudo]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-sudo'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.support]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-support'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.system]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-system'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.timestamp]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'srml-timestamp'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[dependencies.version]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'sr-version'
+rev = 'cf46d62d8379182679f0d833811bed8ac0f02260'
+
+[features]
+default = ['std']
+std = [
+    'parity-codec/std',
+    'parity-codec-derive/std',
+    'primitives/std',
+    'client/std',
+    'rstd/std',
+    'runtime-io/std',
+    'support/std',
+    'balances/std',
+    'fees/std',
+    'executive/std',
+    'aura/std',
+    'indices/std',
+    'primitives/std',
+    'system/std',
+    'timestamp/std',
+    'sudo/std',
+    'version/std',
+    'serde_derive',
+    'serde/std',
+    'safe-mix/std',
+    'consensus-aura/std',
+]
+
+[package]
+authors = ['Parity Technologies <admin@parity.io>']
+edition = '2018'
+name = 'node-template-runtime'
+version = '0.9.0'
