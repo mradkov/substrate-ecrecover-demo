@@ -49,6 +49,8 @@ pub type Nonce = u64;
 /// Used for the module template in `./template.rs`
 mod template;
 
+mod demo;
+
 /// Opaque types. These are used by the CLI to instantiate machinery that don't need to know
 /// the specifics of the runtime. They can then be made to be agnostic over specific formats
 /// of data like extrinsics, allowing for them to continue syncing the network through upgrades
@@ -180,6 +182,8 @@ impl template::Trait for Runtime {
 	type Event = Event;
 }
 
+impl demo::Trait for Runtime {}      // Add this line
+
 construct_runtime!(
 	pub enum Runtime with Log(InternalLog: DigestItem<Hash, Ed25519AuthorityId>) where
 		Block = Block,
@@ -196,6 +200,7 @@ construct_runtime!(
 		Fees: fees::{Module, Storage, Config<T>, Event<T>},
 		// Used for the module template in `./template.rs`
 		TemplateModule: template::{Module, Call, Storage, Event<T>},
+		Demo: demo::{Module, Call, Storage},
 	}
 );
 

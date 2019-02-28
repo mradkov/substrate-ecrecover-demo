@@ -13,6 +13,12 @@ parking_lot = '0.7.1'
 slog = '^2'
 tokio = '0.1'
 trie-root = '0.11.0'
+chisel = "0.1.0"
+ewasm_api = '0.7.0'
+libsecp256k1 = '^0.2.1'
+sha3 = '^0.6'
+grin_secp256k1zkp = '0.7.4'
+
 
 [dependencies.basic-authorship]
 git = 'https://github.com/paritytech/substrate.git'
