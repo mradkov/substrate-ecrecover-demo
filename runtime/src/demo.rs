@@ -52,29 +52,38 @@ fn ethereum_signable_message(what: &[u8]) -> Vec<u8> {
 
 // Attempts to recover the Ethereum address from a message signature signed by using
 // the Ethereum RPC's `personal_sign` and `eth_sign`.
-fn eth_recover(s: &EcdsaSignature, what: &[u8]) -> Option<EthereumAddress> {
+fn eth_recover(s: &EcdsaSignature, what: &[u8]) -> Option<[u8; 20]> {
 	let msg = keccak_256(&ethereum_signable_message(what));
-	let mut res = EthereumAddress::default();
+	let mut res = <[u8; 20]>::default();
 	res.copy_from_slice(&keccak_256(&secp256k1_ecdsa_recover(&s.to_blob(), &msg).ok()?[..])[12..]);
 	Some(res)
+}
+
+fn vector_to_array(vector: Vec<u8>) -> [u8;65] {
+    let mut arr = [0u8;65];
+    for (place, element) in arr.iter_mut().zip(vector.iter()) {
+        *place = *element;
+    }
+    arr
 }
 
 decl_module! {
     pub struct Module<T: Trait> for enum Call where origin: T::Origin {
         // recover_event
 
-        /// Make a claim.
-		fn claim(origin, ethereum_signature: EcdsaSignature) -> Result {
+        /// check address from signature.
+		fn check(origin, ethereum_signature: Vec<u8>) -> Result {
+
+			let to_array = EcdsaSignature::from_blob(&vector_to_array(ethereum_signature));
+
 			// This is a public call, so we ensure that the origin is some signed account.
 			let sender = ensure_signed(origin)?;
 			
 			let signer = sender.using_encoded(|data|
-					eth_recover(&ethereum_signature, data)
+					eth_recover(&to_array, data)
 				).ok_or("Invalid Ethereum signature")?;
 			
             <Signer<T>>::put(signer);
-            // Self::recover_event(RawEvent::Recovered(signer));
-
             Ok(())
 		}
     }
@@ -82,7 +91,7 @@ decl_module! {
 
 decl_storage! {
   trait Store for Module<T: Trait> as Demo {
-      Signer get(signer): Option<EthereumAddress>;
+      Signer get(signer): Option<[u8; 20]>;
   }
 }
 
@@ -145,8 +154,8 @@ mod tests {
 	fn alice_public() -> secp256k1::PublicKey {
 		secp256k1::PublicKey::from_secret_key(&alice_secret())
 	}
-	fn alice_eth() -> EthereumAddress {
-		let mut res = EthereumAddress::default();
+	fn alice_eth() -> [u8; 20] {
+		let mut res = <[u8; 20]>::default();
 		res.copy_from_slice(&keccak256(&alice_public().serialize()[1..65])[12..]);
 		res
 	}
